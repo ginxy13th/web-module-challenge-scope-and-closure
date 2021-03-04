@@ -28,10 +28,15 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * counter1 will always return 0, counter2 will return 1.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * counter1, it has a functio within a function
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * 
+ *if you want the counter to reset every console then use counter1, if you want it to remember the previous console number and add to it then use counter2
 */
 
 // counter1 code
@@ -56,12 +61,17 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  let atBat = 0;
+  for(let i = 0; i < 3; i++){
+    var points = Math.round(Math.random());
+    if (points === 1){
+      atBat = atBat + 1 
+    }else{
+    }
+} return atBat;
 }
-
+console.log(inning());
 /* Task 3: finalScore()
 
 Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
@@ -76,12 +86,17 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(callback, num){ 
+let homeScore = 0
+let awayScore = 0
 
-  /*Code Here*/
-
+for( let i = 0; i < num; i++){
+  homeScore += (callback() *1)
+  awayScore += (callback() *1)
 }
-
+return {"Home": homeScore, "Away": awayScore}
+}
+ console.log(finalScore(inning, 9));
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
@@ -103,8 +118,16 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreBoard(callback, num){
+  let homeRuns = 0;
+  let awayRuns = 0;
+  let innings = []
+  for(let i = 0; i < num; i++){
+    homeRuns += callback();
+    awayRuns += callback();
+    innings.push(`${i+1}th inning: ${homeRuns} - ${awayRuns}`);   
+  }
+ innings.push(`Final Score: ${homeRuns} - ${awayRuns}`)    
+  return innings;
 }
-
-
+console.log(scoreBoard(inning, 9))
